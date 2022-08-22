@@ -112,7 +112,7 @@ function borrarUsuario(){
 			clear
 			break;;
 		2)
-			userdel -r $delusuario
+			deluser -r $delusuario
 			echo "+------------------------------------------+";
 			echo "|EL USUARIO HA SIDO BORRADO CON BAJA FISICA|";
 			echo "+------------------------------------------+";
