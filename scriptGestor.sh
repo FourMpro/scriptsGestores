@@ -10,6 +10,7 @@ function menu(){
         echo "| 3) Gestor de redes          |"
         echo "| 4) Gestor de resplados      |"
 	echo "| 5) Respaldo manual          |"
+	echo "| 6) Editar script firewall   |"
 	echo "|-----------------------------|"   
         echo "| 0) SALIR DEL MENU           |"
         echo "+-----------------------------+"
@@ -42,7 +43,11 @@ do
 		5)
 			clear
 			echo "RESPALDO MANUAL"
-			sh scripts/gestorRespaldo.sh
+			sh scripts/gestorRespaldo.sh;;
+		6)
+			clear
+			echo "FIREWALL"
+			vim scripts/firewall.sh;;
                 0)
                         clear
                         echo "+*-*-*-+";
