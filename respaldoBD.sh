@@ -21,17 +21,32 @@ function estructura() {
 	echo "Respaldo de la estructura hecha"
 	mysqldump -v --opt --nodata --default-character-set=utf8 -u root -p SIGD > $fecha-SIGD-estructura.sql
 	mv $fecha-SIGD-estructura.sql /root/respaldos/respaldobd/
+        echo "";
+        echo "Presione una tecla para finalizar";
+        read -n 1 s
 }
 
 function completo() {
         echo "Respaldo completo realizado"
 	mysqldump --opt --events --triggers --default-character-set=utf8 -u root -p SIGD | gzip -c > $fecha-SIGD-completo.sql.gz
 	mv $fecha-SIGD-completo.sql.gz /root/respaldos/respaldobd/
+        echo "";
+        echo "Presione una tecla para finalizar";
+        read -n 1 s
 }
 
 function restaurar() {
+	echo "Ingrese el nombre del .sql (Porfavor, posicione el archivo en Desktop)"
+	echo ""
+	read archivo
+	echo "Ingrese el nombre de la base de datos a crear"
+	echo ""
+	read bd
         echo "Base de datos restaurada"
-	mysql -u root -p SIGD < SIGD.sql
+	mysql -u root -p $bd < /home/fm/Desktop/$archivo.sql
+        echo "";
+        echo "Presione una tecla para finalizar";
+        read -n 1 s
 }
 
 while [ $sel -ne 4 ];

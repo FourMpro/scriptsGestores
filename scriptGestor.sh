@@ -11,6 +11,7 @@ function menu(){
         echo "| 4) Gestor de resplados      |"
 	echo "| 5) Respaldo manual          |"
 	echo "| 6) Editar script firewall   |"
+	echo "| 7) Gestor base de datos     |"
 	echo "|-----------------------------|"   
         echo "| 0) SALIR DEL MENU           |"
         echo "+-----------------------------+"
@@ -48,6 +49,10 @@ do
 			clear
 			echo "FIREWALL"
 			vim scripts/firewall.sh;;
+		7)	
+			clear
+			echo "BASE DE DATOS"
+			vim scripts/respaldoBD.sh;;
                 0)
                         clear
                         echo "+*-*-*-+";
