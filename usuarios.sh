@@ -1,6 +1,8 @@
 #!/bin/bash
 #variables globales
 sel=0;
+fecha=$(date +%Y-%m-%d-%H-%M-%S);
+echo "$fecha - Se inicio el script de gestion de usuarios, lo hizo el usuario: `whoami`" >> /root/respaldos/logsGestor/logUsuarios.txt
 
 function menu(){
         echo "+----------------------------+"
@@ -25,8 +27,9 @@ function altaUsuarios(){
 	read nombre
 	existeUsuario=$(cat /etc/passwd | grep -c $nombre)
 	if [ $existeUsuario -eq 1 ]; then
-		echo "El usuario existe, presione enter para continuar"
+		echo "El usuario ya existe, presione enter para continuar"
 		echo ""
+		echo "$fecha - Hubo un intento de creación de usuario con el nombre $nombre, pero este usuario ya existe en /etc/passwd" >> /root/respaldos/logsGestor/logUsuarios.txt
 		read a
 	else
 		echo "Ingrese el nombre del grupo"
@@ -38,8 +41,11 @@ function altaUsuarios(){
 			read comentario
 			useradd -g $grupo -d /home/$nombre -m -c $comentario -s /bin/bash $nombre
 			passwd -e -d $nombre
+			echo "$fecha - Se creo satisfactoriamente el usuario $usuario con el grupo $grupo y comentario $comentario" >> /root/respaldos/logsGestor/logUsuarios.txt
 		else
 			echo "El grupo no existe, no se puede agregar el usuario"
+			echo ""
+			echo "$fecha - Hubo un intento de creación de usuario con el nombre $nombre dentro del grupo $grupo, pero el grupo no existe" >> /root/respaldos/logsGestor/logUsuarios.txt
 		fi	
 	fi
         echo "";
@@ -54,6 +60,7 @@ function listarUsuarios(){
         echo "";
         echo "Presione una tecla para finalizar";
         read -n 1 s
+		echo "$fecha - Se visualizo la lista de usuarios" >> /root/respaldos/logsGestor/logUsuarios.txt
 }
 
 function buscarUsuarios(){
@@ -69,10 +76,12 @@ function buscarUsuarios(){
 		echo "NOMBRE: " $nomb
 		echo "COMENTARIO: " $coment
 		echo "HOME DE TRABAJO: " $homeTrabajo
+		echo "$fecha - Se realizo una busqueda del usuario $usuario" >> /root/respaldos/logsGestor/logUsuarios.txt
 		read a
 	else
 		echo "El usuario no existe en el sistema"
 		echo "Presione enter para continuar"
+		echo "$fecha - Hubo un intento de busqueda de usuario, pero el $nombre no existe" >> /root/respaldos/logsGestor/logUsuarios.txt
 		read a
 	fi
         echo "";
@@ -108,6 +117,7 @@ function borrarUsuario(){
 			echo "+------------------------------------------+";
 			echo "|EL USUARIO HA SIDO BORRADO CON BAJA LOGICA|";
 			echo "+------------------------------------------+";
+			echo "$fecha - Se borro el usuario $delusuario con baja logica" >> /root/respaldos/logsGestor/logUsuarios.txt
 			sleep 2
 			clear
 			break;;
@@ -116,6 +126,7 @@ function borrarUsuario(){
 			echo "+------------------------------------------+";
 			echo "|EL USUARIO HA SIDO BORRADO CON BAJA FISICA|";
 			echo "+------------------------------------------+";
+			echo "$fecha - Se borro el usuario $delusuario con baja fisica" >> /root/respaldos/logsGestor/logUsuarios.txt
 			sleep 2
 			clear
 			break;;
@@ -145,6 +156,7 @@ function bloquearUser(){
         read lockuser
         usermod --lock $lockuser
         clear
+		echo "$fecha - Se bloqueo el usuario $lockuser" >> /root/respaldos/logsGestor/logUsuarios.txt
         echo "";
         echo "Presione una tecla para finalizar";
         read -n 1 s
@@ -160,6 +172,7 @@ function desbloquearUser(){
         read unlockuser
         usermod --unlock $unlockuser
         clear
+		echo "$fecha - Se desbloqueo al usuario $unlockuser" >> /root/respaldos/logsGestor/logUsuarios.txt
         echo "";
         echo "Presione una tecla para finalizar";
         read -n 1 s
@@ -171,8 +184,10 @@ function cambiarContra(){
 	existeUsuario=$(cat /etc/passwd | grep -c $nombre)
 	if [ $existeUsuario -eq 1 ]; then
 		passwd $nombre
+		echo "$fecha - Se cambio la contraseña del usuario $nombre" >> /root/respaldos/logsGestor/logUsuarios.txt
 	else
 		echo "El usuario no existe, presione enter para continuar"
+		echo "$fecha - Hubo un intento de modificacion de contraseña, pero el usuario $nombre no existe" >> /root/respaldos/logsGestor/logUsuarios.txt
 		read a
 	fi
 	echo "";

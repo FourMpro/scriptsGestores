@@ -1,6 +1,8 @@
 #!/bin/bash
 #variables globales
 sel=0;
+fecha=$(date +%Y-%m-%d-%H-%M-%S);
+echo "$fecha - Se inicio el script de gestion de redes, lo hizo el usuario: `whoami`" >> /root/respaldos/logsGestor/logRedes.txt
 
 function menu(){
         echo "+-------------------------------------------+"
@@ -29,6 +31,7 @@ function configred(){
 	echo "---------------------------------------------------------";
         cat "/etc/NetworkManager/system-connections/$redarchivo";
 	echo "---------------------------------------------------------";
+        echo "$fecha - Se visualizo la conexion de $redarchivo" >> /root/respaldos/logsGestor/logRedes.txt
 	echo "";
 	echo "Presione una tecla para finalizar";
 	read -n 1 s;   
@@ -40,6 +43,7 @@ function editconfigred(){
         echo "Cual desea editar? Escriba el nombre completo (sin comillas)";
         read redarchivo
         vim "/etc/NetworkManager/system-connections/$redarchivo";
+        echo "$fecha - Se edito la conexion de red $redarchivo" >> /root/respaldos/logsGestor/logRedes.txt
         echo "";
         echo "Presione una tecla para finalizar";
         read -n 1 s;
@@ -49,6 +53,7 @@ function verip(){
 	echo "------------------------------------------------------"
 	ip route show
 	echo "------------------------------------------------------"
+        echo "$fecha - Se visualizo la ip" >> /root/respaldos/logsGestor/logRedes.txt
         echo "";
         echo "Presione una tecla para finalizar";
         read -n 1 s;	 
@@ -72,6 +77,7 @@ function configip(){
 	clear
 	echo "------------------------------------------------------"
 	echo "Se ha realizado el cambio"
+        echo "$fecha - Se cambio la ip de $adaptadorred a $ipconfig" >> /root/respaldos/logsGestor/logRedes.txt
 	ifconfig $adaptadorred
 	echo "------------------------------------------------------"
         echo "Presione una tecla para finalizar";
@@ -86,6 +92,7 @@ function borrarip(){
         echo "Ingrese la ip que desee borrar: "
 	read borrarip
 	ip addr del $borrarip dev enp0s3
+        echo "$fecha - Se borro la ip $borrarip" >> /root/respaldos/logsGestor/logRedes.txt
 	echo ""
 	echo "Presione una tecla para finalizar";
         read -n 1 s
@@ -114,6 +121,7 @@ function gatewayconf(){
         read gateway
 	ip route add $gateway via $ipactual dev $adaptadorred
 	ip route show
+        echo "$fecha - Se modifico el gateway $gateway con la $ipactual" >> /root/respaldos/logsGestor/logRedes.txt
 	echo "";
         echo "Presione una tecla para finalizar";
         read -n 1 s
@@ -123,6 +131,7 @@ function estadisticasRed(){
 	echo "------------------------------------------------------";
 	ip -s link
 	echo "------------------------------------------------------";
+        echo "$fecha - Se visualizaron las estadisticas de red" >> /root/respaldos/logsGestor/logRedes.txt
         echo "";
         echo "Presione una tecla para finalizar";
         read -n 1 s
@@ -132,6 +141,7 @@ function verUsuarios(){
 	echo "------------------------------------------------------";
 	w
 	echo "------------------------------------------------------";
+        echo "$fecha - Se visualizaron los usuarios conectados" >> /root/respaldos/logsGestor/logRedes.txt
         echo "";
         echo "Presione una tecla para finalizar";
         read -n 1 s
@@ -145,6 +155,7 @@ function kickUsuario(){
 	echo "¿Que usuario desea echar?";
 	read echar
 	pkill -u $echar
+        echo "$fecha - Se echo el usuario $echar" >> /root/respaldos/logsGestor/logRedes.txt
         echo "";
         echo "Presione una tecla para finalizar";
         read -n 1 s

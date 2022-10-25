@@ -2,6 +2,7 @@
 #variables globales
 sel=0;
 fecha=$(date +%Y-%m-%d-%H-%M-%S)
+echo "$fecha - Se inicio el script de gestion de RespaldosBD, lo hizo el usuario: `whoami`" >> /root/respaldos/logsGestor/logResbd.txt
 
 function menu(){
         echo "+------------------------------------+"
@@ -18,6 +19,7 @@ function menu(){
 }
 
 function estructura() {
+        echo "$fecha - Hubo un intento de Respaldo de la estructura" >> /root/respaldos/logsGestor/logResbd.txt
 	echo "Respaldo de la estructura hecha"
 	mysqldump -v --opt --nodata --default-character-set=utf8 -u root -p SIGD > $fecha-SIGD-estructura.sql
 	mv $fecha-SIGD-estructura.sql /root/respaldos/respaldobd/
@@ -27,6 +29,7 @@ function estructura() {
 }
 
 function completo() {
+        echo "$fecha - Hubo un intento de Respaldo Completo" >> /root/respaldos/logsGestor/logResbd.txt
         echo "Respaldo completo realizado"
 	mysqldump --opt --events --triggers --default-character-set=utf8 -u root -p SIGD | gzip -c > $fecha-SIGD-completo.sql.gz
 	mv $fecha-SIGD-completo.sql.gz /root/respaldos/respaldobd/
@@ -36,6 +39,7 @@ function completo() {
 }
 
 function restaurar() {
+        echo "$fecha - Se intento restaurar la base de datos" >> /root/respaldos/logsGestor/logResbd.txt
 	echo "Ingrese el nombre del .sql (Porfavor, posicione el archivo en Desktop)"
 	echo ""
 	read archivo

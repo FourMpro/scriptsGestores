@@ -1,5 +1,7 @@
 #!/bin/bash
 sel=0
+fecha=$(date +%Y-%m-%d-%H-%M-%S);
+echo "$fecha - Se inicio el script de scriptGestor: lo hizo el usuario: `whoami`" >> /root/respaldos/logsGestor/logScriptgestor.txt
 
 function menu(){
         echo "+-----------------------------+"

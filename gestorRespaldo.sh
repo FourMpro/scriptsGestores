@@ -1,6 +1,8 @@
 #!/bin/bash
 sel=0
 fecha=$(date +%Y-%m-%d-%H-%M-%S-MANUAL)
+fecha2=$(date +%Y-%m-%d-%H-%M-%S)
+echo "$fecha2 - Se inicio el script de GestorRespaldos, lo hizo el usuario: `whoami`" >> /root/respaldos/logsGestor/logGestor.txt
 
 function menu(){
 	echo "+-------------------+"

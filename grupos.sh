@@ -1,6 +1,9 @@
 #!/bin/bash
 #variables globales
 sel=0;
+fecha=$(date +%Y-%m-%d-%H-%M-%S);
+echo "$fecha - Se inicio el script de gestion de grupos, lo hizo el usuario: `whoami`" >> /root/respaldos/logsGestor/logGrupos.txt
+
 
 function menu(){
         echo "+----------------------------+"
@@ -26,9 +29,11 @@ function altaGrupo(){
 	if [ $existeGrupo -eq 1 ]; then
 		echo "El grupo ya existe, presione enter para continuar"
 		read a
+                echo "$fecha - Hubo un intento de creacion de grupo, pero el grupo $nombre ya existe" >> /root/respaldos/logsGestor/logGrupos.txt
 	else
 		groupadd $nombre
-		echo "El grupo se ha creado";	
+		echo "El grupo se ha creado";
+                echo "$fecha - Se creo satisfactoriamente el grupo $nombre" >> /root/respaldos/logsGestor/logGrupos.txt	
 	fi
         echo "";
         echo "Presione una tecla para finalizar";
@@ -39,6 +44,7 @@ function altaGrupo(){
 function listarGrupos(){
 	echo "LISTA DE GRUPOS"
 	cut -d ":" -f 1 /etc/group
+        echo "$fecha - Se visualizo la lista de grupos" >> /root/respaldos/logsGestor/logGrupos.txt
         echo "";
         echo "Presione una tecla para finalizar";
         read -n 1 s
@@ -53,10 +59,12 @@ function buscarGrupos(){
 		echo "El grupo existe"
 		nomb=$(cut -d ":" -f 1 /etc/group | grep $nombre)
 		echo "NOMBRE: " $nomb
+                echo "$fecha - Se realizo una busqueda del grupo $nombre" >> /root/respaldos/logsGestor/logGrupos.txt
 		read a
 	else
 		echo "El grupo no existe en el sistema"
 		echo "Presione enter para continuar"
+                echo "$fecha - Hubo un intento de busqueda del grupo $nombre, pero este no existe" >> /root/respaldos/logsGestor/logGrupos.txt
 		read a
 	fi
         echo "";
@@ -76,6 +84,7 @@ function borrarGrupo(){
 	clear
 	echo "Grupo eliminado..."
 	echo "";
+        echo "$fecha - Se elimino satisfactoriamente el grupo $delgrupo" >> /root/respaldos/logsGestor/logGrupos.txt
         echo "Presione una tecla para finalizar";
         read -n 1 s
 }
@@ -90,6 +99,7 @@ function bloquearGrupo(){
         read lockgroup
         groupmod --lock $lockgroup
         clear
+        echo "$fecha - Se bloqueo el grupo $lockgroup" >> /root/respaldos/logsGestor/logGrupos.txt
         echo "";
         echo "Presione una tecla para finalizar";
         read -n 1 s
@@ -105,6 +115,7 @@ function desbloquearGrupo(){
         read unlockgroup
         groupmod --unlock $unlockgroup
         clear
+        echo "$fecha - Se desbloqueo el grupo $unlockgroup" >> /root/respaldos/logsGestor/logGrupos.txt
         echo "";
         echo "Presione una tecla para finalizar";
         read -n 1 s
