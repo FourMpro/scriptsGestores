@@ -1,7 +1,7 @@
 #!/bin/bash
 sel=0
 fecha=$(date +%Y-%m-%d-%H-%M-%S);
-echo "$fecha - Se inicio el script de scriptGestor: lo hizo el usuario: `whoami`" >> /root/respaldos/logsGestor/logScriptgestor.txt
+echo "$fecha - Se inicio el script gestor de menus, lo hizo el usuario: `whoami`" >> /root/respaldos/logsGestor/logMenu.txt
 
 function menu(){
         echo "+-----------------------------+"
@@ -14,6 +14,8 @@ function menu(){
 	echo "| 5) Respaldo manual          |"
 	echo "| 6) Editar script firewall   |"
 	echo "| 7) Gestor base de datos     |"
+	echo "| 8) Gestor de rsync          |"
+	echo "| 9) Visualizador de logs     |"
 	echo "|-----------------------------|"   
         echo "| 0) SALIR DEL MENU           |"
         echo "+-----------------------------+"
@@ -27,7 +29,7 @@ do
         menu
         read sel
         case $sel in
-                1)
+		1)
                         clear
                         echo "GESTOR DE USUARIOS"
                         sh scripts/usuarios.sh;;
@@ -50,11 +52,19 @@ do
 		6)
 			clear
 			echo "FIREWALL"
-			vim scripts/firewall.sh;;
+			sh scripts/firewall.sh;;
 		7)	
 			clear
 			echo "BASE DE DATOS"
-			vim scripts/respaldoBD.sh;;
+			sh scripts/respaldoBD.sh;;
+                8)
+                        clear
+                        echo "RSYNC"
+                        sh scripts/gestorRsync.sh;;
+                9)
+                        clear
+                        echo "LOGS"
+                        sh scripts/visualizadorLogs.sh;;
                 0)
                         clear
                         echo "+*-*-*-+";
