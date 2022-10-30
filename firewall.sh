@@ -31,8 +31,5 @@ iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
 #Bloquear trafico de un rango IP
 iptables -A INPUT -p tcp -m iprange --src-range 192.168.1.2-192.168.1.20
 
-#Bloquear una url
-iptables -A OUTPUT -p tcp -d www.youtube.com -j DROP
-
 #Bloquear peticiones ping
 iptables -A INPUT -p icmp --icmp-type echo-request -j DROP

@@ -43,7 +43,7 @@ function resremoto(){
         echo "REALIZANDO TESTEO..."
       	sleep 1
         clear
-        rsync -anv /root/respaldos root@ipdemaquina:/root/copiarespaldo
+        rsync -anv /root/respaldos root@192.168.1.23:/root/copiarespaldo
         echo ""
         echo "----------------------------------------"
         echo "Ingrese 1 si desea realizar el respaldo"
@@ -52,7 +52,7 @@ function resremoto(){
         if [ $respuesta -eq 1 ]
        	then
 		echo "$fecha - Se realizo un respaldo remoto de rsync, lo hizo el usuario: `whoami`" >> /root/respaldos/logsGestor/logRsync.txt
-                rsync -av /root/respaldos root@ipdemaquina:/root/copiarespaldo
+                rsync -av /root/respaldos root@192.168.1.23:/root/copiarespaldo
 		echo ""
 		echo "--------------"
 		echo "Respaldo hecho"
